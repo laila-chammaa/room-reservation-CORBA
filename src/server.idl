@@ -1,0 +1,40 @@
+module common
+{
+	enum CampusID {DVL, KKL, WST};
+	struct Timeslot {
+    	long start;
+        long end;
+     };
+
+	//Interface for the Campus Server
+	interface ServerInterface
+	{
+	typedef sequence<Timeslot> timeSlots;
+//		//Unknown client exception
+//		exception invalid_client {};
+//
+//		//Invalid method invocation
+//		exception invalid_bankOperation {};
+
+//		typedef sequence<string> accounts;
+//
+//		long getLocalAccountCount();
+//		accounts getAllCustomerAccount();
+
+        long getLocalAvailableTimeSlot();
+
+        //ADMIN ONLY
+        string createRoom(in string adminID, in short roomNumber, in string date, in timeSlots listOfTimeSlots);
+        string deleteRoom(in string adminID, in short roomNumber, in string date, in timeSlots listOfTimeSlots);
+
+        //STUDENT ONLY
+        string bookRoom(in string studentID, in CampusID campusID, in short roomNumber, in string date, in Timeslot timeSlot);
+        string getAvailableTimeSlot(in string date);
+        string cancelBooking(in string studentID, in string bookingID);
+        string changeReservation(in string bookingId, in CampusID newCampusName, in short newRoomNo, in Timeslot newTimeSlot);
+
+		long getUDPPort();
+		string getUDPHost();
+		void shutdown();
+	};
+};
