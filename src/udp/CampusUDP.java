@@ -3,6 +3,7 @@ package udp;
 import common.ServerInterface;
 import common.ServerInterfaceHelper;
 import common.ServerInterfacePOA;
+import model.CampusID;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -43,7 +44,7 @@ public class CampusUDP implements CampusUDPInterface {
     }
 
     @Override
-    public void execute(ServerInterfacePOA server, common.CampusID campusID) {
+    public void execute(ServerInterfacePOA server, CampusID campusID) {
         Properties sysProperties = System.getProperties();
 
         sysProperties.setProperty("org.omg.CORBA.ORBClass", "com.sun.corba.se.internal.POA.POAORB");

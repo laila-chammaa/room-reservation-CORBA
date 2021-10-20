@@ -12,7 +12,7 @@ import org.omg.PortableServer.POAHelper;
 import java.util.HashMap;
 import java.util.Properties;
 
-import static common.CampusID.*;
+import static model.CampusID.*;
 
 public class ServerDriver {
     public static void main(String[] args) {
@@ -22,13 +22,8 @@ public class ServerDriver {
         String[] serverList = {"KKL", "DVL", "WST"};
 
         try {
-            Properties properties = new Properties();
-
-            properties.put("org.omg.CORBA.ORBInitialHost", "127.0.0.1");
-            properties.put("org.omg.CORBA.ORBInitialPort", "1050");
-
             //1. Create and initialize ORB
-            ORB orb = ORB.init(args, properties);
+            ORB orb = ORB.init(args, null);
 
             //2. Get reference to RootPOA and activate the POAManager
             POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));

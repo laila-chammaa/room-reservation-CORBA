@@ -3,7 +3,6 @@ package client;
 import model.CampusID;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -11,7 +10,7 @@ import java.util.logging.SimpleFormatter;
 import static client.StudentClient.USER_TYPE_POS;
 
 public class ClientLogUtil {
-    static Logger initiateLogger(CampusID campusID, String userID) throws RemoteException {
+    static Logger initiateLogger(CampusID campusID, String userID) throws Exception {
         String filename;
         char userType = userID.charAt(USER_TYPE_POS);
 
@@ -20,7 +19,7 @@ public class ClientLogUtil {
         } else if (userType == 'A') {
             filename = "Clients Logs/" + campusID + " - " + userID;
         } else {
-            throw new RemoteException("Error: Invalid User ID.");
+            throw new Exception("Error: Invalid User ID.");
         }
 
         Logger logger = Logger.getLogger(filename);

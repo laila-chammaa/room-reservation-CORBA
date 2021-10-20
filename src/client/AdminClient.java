@@ -23,7 +23,7 @@ public class AdminClient {
     private static final int USER_TYPE_POS = 3;
     private static final int CAMPUS_NAME_POS = 3;
 
-    public AdminClient(String userID) throws Exception {
+    public AdminClient(String[] args, String userID) throws Exception {
         validateAdmin(userID);
         try {
             this.logger = initiateLogger(campusID, userID);
@@ -33,8 +33,7 @@ public class AdminClient {
 
         try {
             // create and initialize the ORB
-            //orb = ORB.init(args, null);
-            orb = ORB.init();
+            orb = ORB.init(args, null);
             // get the root naming context
             org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
             // Use NamingContextExt instead of NamingContext. This is
@@ -44,7 +43,7 @@ public class AdminClient {
             // resolve the Object Reference in Naming
             servant = ServerInterfaceHelper.narrow(ncRef.resolve_str(campusID.toString()));
 
-            servant.shutdown();
+            //servant.shutdown();
 
         } catch (Exception e) {
             System.out.println("ERROR : " + e);

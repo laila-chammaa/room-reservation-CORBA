@@ -1,0 +1,10 @@
+Oct 20, 2021 5:09:13 PM server.CampusServer <init>
+INFO: Initializing Server ...
+Oct 20, 2021 5:09:13 PM server.CampusServer <init>
+INFO: Server: DVL initialization success.
+Oct 20, 2021 5:09:13 PM server.CampusServer <init>
+INFO: Server: DVL port is : 30200
+Oct 20, 2021 5:09:32 PM server.CampusServer createRoom
+INFO: Server Log | Request: createRoom | AdminID: DVLA1234 | Room number: 203 | Date: 01/01/2020
+Oct 20, 2021 5:09:32 PM server.CampusServer createRecord
+INFO: Server Log | Room record RR00003 was created successfully

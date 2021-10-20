@@ -8,7 +8,6 @@ import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import static client.ClientLogUtil.initiateLogger;

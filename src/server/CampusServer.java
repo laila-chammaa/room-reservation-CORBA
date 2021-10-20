@@ -1,6 +1,6 @@
 package server;
 
-import common.CampusID;
+import model.CampusID;
 import common.ServerInterface;
 import common.ServerInterfacePOA;
 import common.Timeslot;
@@ -36,7 +36,7 @@ public class CampusServer extends ServerInterfacePOA {
     private Logger logger;
 
     //CORBA Variables
-    private ORB orb = null;
+    private ORB orb;
     private int UDPPort;
     private String UDPHost;
 
@@ -46,7 +46,7 @@ public class CampusServer extends ServerInterfacePOA {
     //Holds other servers' addresses : ["ServerName", "hostName:portNumber"]
     HashMap<String, String> serversList;
 
-    public CampusServer(common.CampusID campusID, ORB orb, String host, int port, HashMap<String, String> serversList) {
+    public CampusServer(CampusID campusID, ORB orb, String host, int port, HashMap<String, String> serversList) {
         this.campusID = campusID;
         this.orb = orb;
         this.UDPHost = host;
@@ -71,7 +71,7 @@ public class CampusServer extends ServerInterfacePOA {
     }
 
     private void initiateLogger() {
-        Logger logger = Logger.getLogger("Server Logs/" + this.campusID + "- Server Log");
+        Logger logger = Logger.getLogger("Server Logs/" + this.campusID.toString() + "- Server Log");
         FileHandler fh;
 
         try {
@@ -199,8 +199,11 @@ public class CampusServer extends ServerInterfacePOA {
     }
 
     @Override
-    public String bookRoom(String studentID, common.CampusID campusID, short roomNumber, String date,
+    public String bookRoom(String studentID, common.CampusID campusIDCorba, short roomNumber, String date,
                            common.Timeslot timeslot) {
+
+        CampusID campusID = CampusID.valueOf(campusIDCorba.toString());
+
         String resultLog;
         resultLog = validateStudent(studentID);
         if (resultLog != null) {
@@ -219,7 +222,8 @@ public class CampusServer extends ServerInterfacePOA {
                                 "| Room number: %d | Date: %s | Timeslot: %s", campusID.toString(), studentID, roomNumber,
                         date, timeslot.toString()));
 //                otherServer = (ServerInterface) registry.lookup(campusID.toString());
-                return otherServer.bookRoom(studentID, campusID, roomNumber, date, timeslot);
+                common.CampusID corbaCampusID = common.CampusID.valueOf(campusID.name());
+                return otherServer.bookRoom(studentID, corbaCampusID, roomNumber, date, timeslot);
             } catch (Exception e) {
                 resultLog = "Server Log | Request: bookRoom | ERROR: " + campusID.toString() + " Not Bound.";
                 this.logger.severe(resultLog);
@@ -369,7 +373,7 @@ public class CampusServer extends ServerInterfacePOA {
         try {
             date = new SimpleDateFormat("dd/MM/yyyy").parse(d);
         } catch (ParseException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: better handling
         }
         cal.setTime(date);
         int week = cal.get(Calendar.WEEK_OF_YEAR);

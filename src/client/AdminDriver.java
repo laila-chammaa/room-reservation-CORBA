@@ -2,14 +2,6 @@ package client;
 
 import common.Timeslot;
 
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Map;
-
 public class AdminDriver {
     public static void main(String[] args) {
         Timeslot[] listOfTimeSlots = {new Timeslot(19, 20), new Timeslot(12, 13),
@@ -23,9 +15,9 @@ public class AdminDriver {
         String aid4 = "KKLS1214";
 
         try {
-            AdminClient testClient1 = new AdminClient(aid1);
-            AdminClient testClient2 = new AdminClient(aid2);
-            AdminClient testClient3 = new AdminClient(aid3);
+            AdminClient testClient1 = new AdminClient(args, aid1);
+            AdminClient testClient2 = new AdminClient(args, aid2);
+            AdminClient testClient3 = new AdminClient(args, aid3);
 
             //testing synchronization with multiple admins
             testClient1.createRoom((short) 201, "03/01/2020", listOfTimeSlots);

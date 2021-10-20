@@ -1,0 +1,14 @@
+Oct 20, 2021 5:09:13 PM server.CampusServer <init>
+INFO: Initializing Server ...
+Oct 20, 2021 5:09:13 PM server.CampusServer <init>
+INFO: Server: WST initialization success.
+Oct 20, 2021 5:09:13 PM server.CampusServer <init>
+INFO: Server: WST port is : 30300
+Oct 20, 2021 5:09:32 PM server.CampusServer createRoom
+INFO: Server Log | Request: createRoom | AdminID: WSTA1234 | Room number: 211 | Date: 04/01/2020
+Oct 20, 2021 5:09:32 PM server.CampusServer createRecord
+INFO: Server Log | Room record RR00002 was created successfully
+Oct 20, 2021 5:09:32 PM server.CampusServer deleteRoom
+INFO: Server Log | Request: deleteRoom | AdminID: WSTA1234 | Room number: 211 | Date: 04/01/2020
+Oct 20, 2021 5:09:32 PM server.CampusServer deleteRoom
+INFO: Server Log | Room record RR00002 was deleted successfully

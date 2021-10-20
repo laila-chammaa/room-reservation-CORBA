@@ -1,0 +1,6 @@
+Oct 20, 2021 5:09:45 PM client.StudentClient getAvailableTimeSlot
+INFO: Client Log | Request: getAvailableTimeSlot | Date: 03/01/2020
+Oct 20, 2021 5:09:45 PM client.StudentClient getAvailableTimeSlot
+WARNING: null
+Oct 20, 2021 5:09:45 PM client.StudentClient bookRoom
+INFO: Client Log | Request: bookRoom | Campus: common.CampusID@7291c18f | StudentID: DVLS1234 | Room number: 201 | Date: 03/01/2020 | Timeslot: common.Timeslot@34a245ab
