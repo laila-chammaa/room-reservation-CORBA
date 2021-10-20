@@ -33,6 +33,19 @@ public class CampusID implements org.omg.CORBA.portable.IDLEntity {
         }
     }
 
+    public String name() {
+        switch (__value) {
+            case 0:
+                return "DVL";
+            case 1:
+                return "KKL";
+            case 2:
+                return "WST";
+            default:
+                return "DVL";
+        }
+    }
+
     public int value() {
         return __value;
     }

@@ -202,7 +202,7 @@ public class CampusServer extends ServerInterfacePOA {
     public String bookRoom(String studentID, common.CampusID campusIDCorba, short roomNumber, String date,
                            common.Timeslot timeslot) {
 
-        CampusID campusID = CampusID.valueOf(campusIDCorba.toString());
+        CampusID campusID = CampusID.valueOf(campusIDCorba.name());
 
         String resultLog;
         resultLog = validateStudent(studentID);
