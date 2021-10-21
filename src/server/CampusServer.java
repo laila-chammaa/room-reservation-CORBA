@@ -1,11 +1,14 @@
 package server;
 
+import common.ServerInterfaceHelper;
 import model.CampusID;
 import common.ServerInterface;
 import common.ServerInterfacePOA;
 import common.Timeslot;
 import model.Booking;
 import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 import udp.UDPServer;
 
 import java.io.IOException;
@@ -105,7 +108,7 @@ public class CampusServer extends ServerInterfacePOA {
         if (resultLog != null) {
             return resultLog;
         }
-        resultLog = validateTimeSlot(listOfTimeSlots);
+        resultLog = validateDateTimeSlot(date, listOfTimeSlots);
         if (resultLog != null) {
             return resultLog;
         }
@@ -166,7 +169,7 @@ public class CampusServer extends ServerInterfacePOA {
         if (resultLog != null) {
             return resultLog;
         }
-        resultLog = validateTimeSlot(listOfTimeSlots);
+        resultLog = validateDateTimeSlot(date, listOfTimeSlots);
         if (resultLog != null) {
             return resultLog;
         }
@@ -209,19 +212,21 @@ public class CampusServer extends ServerInterfacePOA {
         if (resultLog != null) {
             return resultLog;
         }
-        resultLog = validateTimeSlot(new Timeslot[]{timeslot});
+        resultLog = validateDateTimeSlot(date, new Timeslot[]{timeslot});
         if (resultLog != null) {
             return resultLog;
         }
 
         //forward request to other server
         if (campusID != this.campusID) {
-            ServerInterface otherServer = null; //TODO: how to find other server
             try {
                 this.logger.info(String.format("Server Log | Forwarding Request to %s Server: bookRoom | StudentID: %s " +
                                 "| Room number: %d | Date: %s | Timeslot: %s", campusID.toString(), studentID, roomNumber,
                         date, timeslot.toString()));
-//                otherServer = (ServerInterface) registry.lookup(campusID.toString());
+
+                org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+                NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+                ServerInterface otherServer = ServerInterfaceHelper.narrow(ncRef.resolve_str(campusID.toString()));
                 common.CampusID corbaCampusID = common.CampusID.valueOf(campusID.name());
                 return otherServer.bookRoom(studentID, corbaCampusID, roomNumber, date, timeslot);
             } catch (Exception e) {
@@ -267,7 +272,7 @@ public class CampusServer extends ServerInterfacePOA {
         return resultLog;
     }
 
-    @Override
+    @Override //TODO: test to make sure it works
     public String cancelBooking(String studentID, String bookingID) {
 
         String resultLog;
@@ -296,10 +301,9 @@ public class CampusServer extends ServerInterfacePOA {
         return resultLog;
     }
 
-    //Account Format: QCMA1234
-    //Account Format: [Branch ID][AccountType][Last Name 1st Letter][4 Digits]
     @Override
-    public synchronized String changeReservation(String bookingId, common.CampusID newCampusName, short newRoomNo, common.Timeslot newTimeSlot) {
+    public synchronized String changeReservation(String bookingId, common.CampusID newCampusName, short newRoomNo,
+                                                 common.Timeslot newTimeSlot) {
         return null;
     }
 
@@ -427,12 +431,17 @@ public class CampusServer extends ServerInterfacePOA {
         return null;
     }
 
-    private String validateTimeSlot(Timeslot[] listOfTimeSlots) {
+    private String validateDateTimeSlot(String date, Timeslot[] listOfTimeSlots) {
         for (Timeslot slot : listOfTimeSlots) {
             if (slot.start < 0 || slot.start >= 24 || slot.end < 0 ||
                     slot.end >= 24 || slot.start >= slot.end) {
                 return "Invalid timeslot format. Use the 24h clock.";
             }
+        }
+        try {
+            new SimpleDateFormat("dd/MM/yyyy").parse(date);
+        } catch (ParseException e) {
+            return "Invalid date format.";
         }
         return null;
     }

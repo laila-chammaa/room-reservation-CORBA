@@ -27,9 +27,9 @@ public class AdminDriver {
             testClient3.createRoom((short) 203, "01/01/2020", listOfTimeSlots);
 
 
-            //testing invalid admin
-//            AdminClient studentClient = new AdminClient(aid4);
-//            studentClient.createRoom(201, LocalDate.now(), listOfTimeSlots);
+//            testing invalid admin
+//            AdminClient studentClient = new AdminClient(args, aid4);
+//            studentClient.createRoom((short) 201, "01/01/2020", listOfTimeSlots);
 
 
         } catch (Exception e) {

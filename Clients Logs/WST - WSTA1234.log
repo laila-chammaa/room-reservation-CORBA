@@ -1,8 +1,8 @@
-Oct 20, 2021 5:09:32 PM client.AdminClient createRoom
+Oct 20, 2021 8:02:52 PM client.AdminClient createRoom
 INFO: Client Log | Request: createRoom | AdminID: WSTA1234 | Room number: 211 | Date: 04/01/2020
-Oct 20, 2021 5:09:32 PM client.AdminClient createRoom
+Oct 20, 2021 8:02:52 PM client.AdminClient createRoom
 INFO: Server Log | Room record RR00002 was created successfully
-Oct 20, 2021 5:09:32 PM client.AdminClient deleteRoom
+Oct 20, 2021 8:02:52 PM client.AdminClient deleteRoom
 INFO: Client Log | Request: deleteRoom | AdminID: WSTA1234 | Room number: 211 | Date: 04/01/2020
-Oct 20, 2021 5:09:32 PM client.AdminClient deleteRoom
+Oct 20, 2021 8:02:52 PM client.AdminClient deleteRoom
 INFO: Server Log | Room record RR00002 was deleted successfully

@@ -1,46 +1,40 @@
-Oct 20, 2021 5:53:06 PM server.CampusServer <init>
+Oct 20, 2021 8:02:49 PM server.CampusServer <init>
 INFO: Initializing Server ...
-Oct 20, 2021 5:53:06 PM server.CampusServer <init>
+Oct 20, 2021 8:02:49 PM server.CampusServer <init>
 INFO: Server: DVL initialization success.
-Oct 20, 2021 5:53:06 PM server.CampusServer <init>
+Oct 20, 2021 8:02:49 PM server.CampusServer <init>
 INFO: Server: DVL port is : 30200
-Oct 20, 2021 5:53:11 PM server.CampusServer cancelBooking
-INFO: Server Log | Request: cancelBooking | StudentID: DVLS1234 | BookingID: 4u39u
-Oct 20, 2021 5:53:11 PM server.CampusServer cancelBooking
-WARNING: Server Log | ERROR: Booking was not found | Request: cancelBooking | BookingID: 4u39u
-Oct 20, 2021 5:53:31 PM server.CampusServer cancelBooking
-INFO: Server Log | Request: cancelBooking | StudentID: DVLS1234 | BookingID: 4u39u
-Oct 20, 2021 5:53:31 PM server.CampusServer cancelBooking
-WARNING: Server Log | ERROR: Booking was not found | Request: cancelBooking | BookingID: 4u39u
-Oct 20, 2021 5:53:47 PM server.CampusServer cancelBooking
-INFO: Server Log | Request: cancelBooking | StudentID: DVLS1234 | BookingID: 4u39u
-Oct 20, 2021 5:53:47 PM server.CampusServer cancelBooking
-WARNING: Server Log | ERROR: Booking was not found | Request: cancelBooking | BookingID: 4u39u
-Oct 20, 2021 5:54:05 PM server.CampusServer cancelBooking
-INFO: Server Log | Request: cancelBooking | StudentID: DVLS1234 | BookingID: 4u39u
-Oct 20, 2021 5:54:05 PM server.CampusServer cancelBooking
-WARNING: Server Log | ERROR: Booking was not found | Request: cancelBooking | BookingID: 4u39u
-Oct 20, 2021 5:54:36 PM server.CampusServer bookRoom
-INFO: Server Log | Forwarding Request to KKL Server: bookRoom | StudentID: DVLS1234 | Room number: 201 | Date: 03/01/2020 | Timeslot: common.Timeslot@6d3f074
-Oct 20, 2021 5:54:36 PM server.CampusServer bookRoom
-SEVERE: Server Log | Request: bookRoom | ERROR: KKL Not Bound.
-Oct 20, 2021 5:54:43 PM server.CampusServer cancelBooking
-INFO: Server Log | Request: cancelBooking | StudentID: DVLS1234 | BookingID: 4u39u
-Oct 20, 2021 5:54:43 PM server.CampusServer cancelBooking
-WARNING: Server Log | ERROR: Booking was not found | Request: cancelBooking | BookingID: 4u39u
-Oct 20, 2021 5:55:05 PM server.CampusServer bookRoom
-INFO: Server Log | Forwarding Request to KKL Server: bookRoom | StudentID: DVLS1234 | Room number: 201 | Date: 03/01/2020 | Timeslot: common.Timeslot@66ad00c
-Oct 20, 2021 5:55:05 PM server.CampusServer bookRoom
-SEVERE: Server Log | Request: bookRoom | ERROR: KKL Not Bound.
-Oct 20, 2021 5:55:07 PM server.CampusServer bookRoom
-INFO: Server Log | Forwarding Request to WST Server: bookRoom | StudentID: DVLS1234 | Room number: 211 | Date: 04/01/2020 | Timeslot: common.Timeslot@4dde2a14
-Oct 20, 2021 5:55:07 PM server.CampusServer bookRoom
-SEVERE: Server Log | Request: bookRoom | ERROR: WST Not Bound.
-Oct 20, 2021 5:55:08 PM server.CampusServer cancelBooking
-INFO: Server Log | Request: cancelBooking | StudentID: DVLS1234 | BookingID: 4u39u
-Oct 20, 2021 5:55:08 PM server.CampusServer cancelBooking
-WARNING: Server Log | ERROR: Booking was not found | Request: cancelBooking | BookingID: 4u39u
-Oct 20, 2021 5:55:51 PM server.CampusServer bookRoom
-INFO: Server Log | Request: bookRoom | StudentID: DVLS1234 | Room number: 201 | Date: 03/01/2020 | Timeslot: common.Timeslot@1de46913
-Oct 20, 2021 5:55:51 PM server.CampusServer bookRoom
-WARNING: Server Log | ERROR: Room was not found | Request: bookRoom | Room number: 201 | Date: 03/01/2020
+Oct 20, 2021 8:02:52 PM server.CampusServer createRoom
+INFO: Server Log | Request: createRoom | AdminID: DVLA1234 | Room number: 203 | Date: 01/01/2020
+Oct 20, 2021 8:02:52 PM server.CampusServer createRecord
+INFO: Server Log | Room record RR00003 was created successfully
+Oct 20, 2021 8:02:57 PM server.CampusServer getAvailableTimeSlot
+INFO: Server Log | Request: getAvailableTimeSlot | Date: 03/01/2020
+Oct 20, 2021 8:02:57 PM server.CampusServer getAvailableTimeSlot
+INFO: Server Log | Getting the available timeslots was successful.
+Oct 20, 2021 8:02:57 PM server.CampusServer getAvailableTimeSlot
+INFO: Server Log | Getting the available timeslots was successful.
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+INFO: Server Log | Forwarding Request to KKL Server: bookRoom | StudentID: DVLS1234 | Room number: 201 | Date: 03/01/2020 | Timeslot: Timeslot{start=19, end=20}
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+INFO: Server Log | Forwarding Request to WST Server: bookRoom | StudentID: DVLS1234 | Room number: 211 | Date: 04/01/2020 | Timeslot: Timeslot{start=19, end=20}
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+INFO: Server Log | Request: bookRoom | StudentID: DVLS1234 | Room number: 203 | Date: 01/01/2020 | Timeslot: Timeslot{start=19, end=20}
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+INFO: Server Log | Room record RR00003 was booked successfully. BookingID: abd5e10b-d9b5-4a88-88d8-4ff5c0d0c536
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+INFO: Server Log | Request: bookRoom | StudentID: DVLS1234 | Room number: 203 | Date: 01/01/2020 | Timeslot: Timeslot{start=12, end=13}
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+WARNING: Server Log | ERROR: Booking limit (3) for the week was reached | StudentID DVLS1234
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+INFO: Server Log | Request: bookRoom | StudentID: DVLS1234 | Room number: 203 | Date: 01/01/2020 | Timeslot: Timeslot{start=12, end=13}
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+WARNING: Server Log | ERROR: Booking limit (3) for the week was reached | StudentID DVLS1234
+Oct 20, 2021 8:02:57 PM server.CampusServer cancelBooking
+INFO: Server Log | Request: cancelBooking | StudentID: DVLS1234 | BookingID: bd5654c5-1bec-4965-8fde-cc585e7a4a8d
+Oct 20, 2021 8:02:57 PM server.CampusServer cancelBooking
+WARNING: Server Log | ERROR: Booking was not found | Request: cancelBooking | BookingID: bd5654c5-1bec-4965-8fde-cc585e7a4a8d
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+INFO: Server Log | Request: bookRoom | StudentID: DVLS1234 | Room number: 203 | Date: 01/01/2020 | Timeslot: Timeslot{start=12, end=13}
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+WARNING: Server Log | ERROR: Booking limit (3) for the week was reached | StudentID DVLS1234

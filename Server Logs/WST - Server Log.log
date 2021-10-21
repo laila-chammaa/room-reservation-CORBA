@@ -1,6 +1,18 @@
-Oct 20, 2021 5:53:06 PM server.CampusServer <init>
+Oct 20, 2021 8:02:49 PM server.CampusServer <init>
 INFO: Initializing Server ...
-Oct 20, 2021 5:53:06 PM server.CampusServer <init>
+Oct 20, 2021 8:02:49 PM server.CampusServer <init>
 INFO: Server: WST initialization success.
-Oct 20, 2021 5:53:06 PM server.CampusServer <init>
+Oct 20, 2021 8:02:49 PM server.CampusServer <init>
 INFO: Server: WST port is : 30300
+Oct 20, 2021 8:02:52 PM server.CampusServer createRoom
+INFO: Server Log | Request: createRoom | AdminID: WSTA1234 | Room number: 211 | Date: 04/01/2020
+Oct 20, 2021 8:02:52 PM server.CampusServer createRecord
+INFO: Server Log | Room record RR00002 was created successfully
+Oct 20, 2021 8:02:52 PM server.CampusServer deleteRoom
+INFO: Server Log | Request: deleteRoom | AdminID: WSTA1234 | Room number: 211 | Date: 04/01/2020
+Oct 20, 2021 8:02:52 PM server.CampusServer deleteRoom
+INFO: Server Log | Room record RR00002 was deleted successfully
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+INFO: Server Log | Request: bookRoom | StudentID: DVLS1234 | Room number: 211 | Date: 04/01/2020 | Timeslot: Timeslot{start=19, end=20}
+Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
+INFO: Server Log | Room record RR00002 was booked successfully. BookingID: 5c4f0548-c6be-40be-856a-d88c2bab6e01
