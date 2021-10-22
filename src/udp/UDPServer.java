@@ -17,6 +17,7 @@ public class UDPServer implements Runnable {
         this.UDPHost = UDPHost;
         this.UDPPort = UDPPort;
         this.campusServer = campusServer;
+        connectionStatus = true;
     }
 
     public void start() throws IOException {

@@ -1,30 +1,4 @@
-Oct 20, 2021 8:02:57 PM client.StudentClient getAvailableTimeSlot
+Oct 22, 2021 4:13:10 PM client.StudentClient getAvailableTimeSlot
 INFO: Client Log | Request: getAvailableTimeSlot | Date: 03/01/2020
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Client Log | Request: bookRoom | Campus: KKL | StudentID: DVLS1234 | Room number: 201 | Date: 03/01/2020 | Timeslot: Timeslot{start=19, end=20}
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Server Log | Room record RR00001 was booked successfully. BookingID: bd5654c5-1bec-4965-8fde-cc585e7a4a8d
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Client Log | Request: bookRoom | Campus: WST | StudentID: DVLS1234 | Room number: 211 | Date: 04/01/2020 | Timeslot: Timeslot{start=19, end=20}
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Server Log | Room record RR00002 was booked successfully. BookingID: 5c4f0548-c6be-40be-856a-d88c2bab6e01
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Client Log | Request: bookRoom | Campus: DVL | StudentID: DVLS1234 | Room number: 203 | Date: 01/01/2020 | Timeslot: Timeslot{start=19, end=20}
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Server Log | Room record RR00003 was booked successfully. BookingID: abd5e10b-d9b5-4a88-88d8-4ff5c0d0c536
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Client Log | Request: bookRoom | Campus: DVL | StudentID: DVLS1234 | Room number: 203 | Date: 01/01/2020 | Timeslot: Timeslot{start=12, end=13}
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Server Log | ERROR: Booking limit (3) for the week was reached | StudentID DVLS1234
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Client Log | Request: bookRoom | Campus: DVL | StudentID: DVLS1234 | Room number: 203 | Date: 01/01/2020 | Timeslot: Timeslot{start=12, end=13}
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Server Log | ERROR: Booking limit (3) for the week was reached | StudentID DVLS1234
-Oct 20, 2021 8:02:57 PM client.StudentClient cancelBooking
-INFO: Client Log | Request: cancelBooking | StudentID: DVLS1234 | BookingID: bd5654c5-1bec-4965-8fde-cc585e7a4a8d
-Oct 20, 2021 8:02:57 PM client.StudentClient cancelBooking
-INFO: Server Log | ERROR: Booking was not found | Request: cancelBooking | BookingID: bd5654c5-1bec-4965-8fde-cc585e7a4a8d
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Client Log | Request: bookRoom | Campus: DVL | StudentID: DVLS1234 | Room number: 203 | Date: 01/01/2020 | Timeslot: Timeslot{start=12, end=13}
-Oct 20, 2021 8:02:57 PM client.StudentClient bookRoom
-INFO: Server Log | ERROR: Booking limit (3) for the week was reached | StudentID DVLS1234
+Oct 22, 2021 4:13:10 PM client.StudentClient getAvailableTimeSlot
+WARNING: 

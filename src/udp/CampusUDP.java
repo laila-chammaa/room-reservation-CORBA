@@ -13,34 +13,40 @@ import java.util.Properties;
 public class CampusUDP implements CampusUDPInterface {
     private static final long serialVersionUID = 1L;
 
-    private String clientIDSource;
-    private String clientIDDest;
-    private float amount;
+
+    private String studentID;
+    private String bookingID;
+    private short newRoomNo;
+    private common.Timeslot newTimeSlot;
+    private common.CampusID newCampusID;
 
     private String operationType;
     private boolean transferStatus = false;
-    private int totalClientsCount;
+    private int availableTimeSlot;
 
-    //Constructor for inter-campus fund transfer
-    public CampusUDP(String clientIDSource, String clientIDDest, float amount) {
-        this.clientIDSource = clientIDSource;
-        this.clientIDDest = clientIDDest;
-        this.amount = amount;
+    //Constructor for inter-campus booking change
+    public CampusUDP(String studentID, String bookingId, common.CampusID newCampusName, short newRoomNo,
+                     common.Timeslot newTimeSlot) {
+        this.studentID = studentID;
+        this.bookingID = bookingId;
+        this.newCampusID = newCampusName;
+        this.newRoomNo = newRoomNo;
+        this.newTimeSlot = newTimeSlot;
 
-        this.operationType = "fundTransfer";
+        this.operationType = "bookingChange";
     }
 
-    //Constructor for get total client numbers.
+    //Constructor for get total available time slots.
     public CampusUDP() {
-        this.operationType = "getTotalClients";
+        this.operationType = "getAvailableTimeSlots";
     }
 
     public boolean isTransferStatus() {
         return transferStatus;
     }
 
-    public int getTotalClientsCount() {
-        return totalClientsCount;
+    public int getLocalAvailableTimeSlot() {
+        return availableTimeSlot;
     }
 
     @Override
@@ -60,13 +66,14 @@ public class CampusUDP implements CampusUDPInterface {
             NamingContextExt namingContext = NamingContextExtHelper.narrow(objNS);
 
             org.omg.CORBA.Object objBranch = namingContext.resolve_str(campusID.toString());
-            ServerInterface bankServer = ServerInterfaceHelper.narrow(objBranch);
+            ServerInterface campusServer = ServerInterfaceHelper.narrow(objBranch);
 
-//            if (this.operationType.equals("fundTransfer")) {
-//                transferStatus = bankServer.transferFund(clientIDSource, amount, clientIDDest);
-//            } else if (this.operationType.equals("getTotalClients")) {
-//                totalClientsCount = bankServer.getLocalAccountCount();
-//            }
+            if (this.operationType.equals("fundTransfer")) {
+                String resultLog = campusServer.changeReservation(studentID, bookingID, newCampusID, newRoomNo, newTimeSlot);
+                transferStatus = resultLog.contains("success");
+            } else if (this.operationType.equals("getTotalClients")) {
+                availableTimeSlot = campusServer.getLocalAvailableTimeSlot();
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();

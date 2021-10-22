@@ -31,15 +31,15 @@ public class StudentDriver {
 //            adminClient.bookRoom(KKL, 201, "03/01/2020", timeSlot);
 
             //testing max booking for student
-            String bookingID = testClient1.bookRoom(KKL, 201, "03/01/2020", timeSlot);
-            testClient1.bookRoom(WST, 211, "04/01/2020", timeSlot);
-            testClient1.bookRoom(DVL, 203, "01/01/2020", timeSlot);
-            testClient1.bookRoom(DVL, 203, "01/01/2020", timeSlot3);
-            testClient1.bookRoom(DVL, 203, "01/01/2020", timeSlot3);
-
-//            testClient2.cancelBooking(bookingID); //shouldn't work since it's not the student who booked
-            testClient1.cancelBooking(bookingID);
-            testClient1.bookRoom(DVL, 203, "01/01/2020", timeSlot3);
+//            String bookingID = testClient1.bookRoom(KKL, 201, "03/01/2020", timeSlot);
+//            testClient1.bookRoom(WST, 211, "04/01/2020", timeSlot);
+//            testClient1.bookRoom(DVL, 203, "01/01/2020", timeSlot);
+//            testClient1.bookRoom(DVL, 203, "01/01/2020", timeSlot3);
+//            testClient1.bookRoom(DVL, 203, "01/01/2020", timeSlot3);
+//
+////            testClient2.cancelBooking(bookingID); //shouldn't work since it's not the student who booked
+//            testClient1.cancelBooking(bookingID);
+//            testClient1.bookRoom(DVL, 203, "01/01/2020", timeSlot3);
 
 
         } catch (Exception e) {

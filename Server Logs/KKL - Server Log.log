@@ -1,18 +1,6 @@
-Oct 20, 2021 8:02:49 PM server.CampusServer <init>
+Oct 21, 2021 6:14:57 PM server.CampusServer <init>
 INFO: Initializing Server ...
-Oct 20, 2021 8:02:49 PM server.CampusServer <init>
+Oct 21, 2021 6:14:57 PM server.CampusServer <init>
 INFO: Server: KKL initialization success.
-Oct 20, 2021 8:02:49 PM server.CampusServer <init>
+Oct 21, 2021 6:14:57 PM server.CampusServer <init>
 INFO: Server: KKL port is : 30100
-Oct 20, 2021 8:02:52 PM server.CampusServer createRoom
-INFO: Server Log | Request: createRoom | AdminID: KKLA1234 | Room number: 201 | Date: 03/01/2020
-Oct 20, 2021 8:02:52 PM server.CampusServer createRecord
-INFO: Server Log | Room record RR00001 was created successfully
-Oct 20, 2021 8:02:52 PM server.CampusServer createRoom
-INFO: Server Log | Request: createRoom | AdminID: KKLA1234 | Room number: 201 | Date: 03/01/2020
-Oct 20, 2021 8:02:52 PM server.CampusServer updateRecord
-INFO: Server Log | Room record RR00001 was already created. It was updated successfully
-Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
-INFO: Server Log | Request: bookRoom | StudentID: DVLS1234 | Room number: 201 | Date: 03/01/2020 | Timeslot: Timeslot{start=19, end=20}
-Oct 20, 2021 8:02:57 PM server.CampusServer bookRoom
-INFO: Server Log | Room record RR00001 was booked successfully. BookingID: bd5654c5-1bec-4965-8fde-cc585e7a4a8d

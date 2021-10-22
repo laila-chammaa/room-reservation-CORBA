@@ -1,8 +1,8 @@
-Oct 20, 2021 8:02:52 PM client.AdminClient createRoom
+Oct 21, 2021 5:49:23 PM client.AdminClient createRoom
 INFO: Client Log | Request: createRoom | AdminID: KKLA1234 | Room number: 201 | Date: 03/01/2020
-Oct 20, 2021 8:02:52 PM client.AdminClient createRoom
+Oct 21, 2021 5:49:23 PM client.AdminClient createRoom
 INFO: Server Log | Room record RR00001 was created successfully
-Oct 20, 2021 8:02:52 PM client.AdminClient createRoom
+Oct 21, 2021 5:49:23 PM client.AdminClient createRoom
 INFO: Client Log | Request: createRoom | AdminID: KKLA1234 | Room number: 201 | Date: 03/01/2020
-Oct 20, 2021 8:02:52 PM client.AdminClient createRoom
+Oct 21, 2021 5:49:23 PM client.AdminClient createRoom
 INFO: Server Log | Room record RR00001 was already created. It was updated successfully

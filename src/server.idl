@@ -31,7 +31,7 @@ module common
         string bookRoom(in string studentID, in CampusID campusID, in short roomNumber, in string date, in Timeslot timeSlot);
         string getAvailableTimeSlot(in string date);
         string cancelBooking(in string studentID, in string bookingID);
-        string changeReservation(in string bookingId, in CampusID newCampusName, in short newRoomNo, in Timeslot newTimeSlot);
+        string changeReservation(in string studentID, in string bookingId, in CampusID newCampusName, in short newRoomNo, in Timeslot newTimeSlot);
 
 		long getUDPPort();
 		string getUDPHost();

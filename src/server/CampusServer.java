@@ -9,11 +9,12 @@ import model.Booking;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
+import udp.CampusUDP;
+import udp.CampusUDPInterface;
+import udp.UDPClient;
 import udp.UDPServer;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -302,11 +303,102 @@ public class CampusServer extends ServerInterfacePOA {
     }
 
     @Override
-    public synchronized String changeReservation(String bookingId, common.CampusID newCampusName, short newRoomNo,
+    public synchronized String changeReservation(String studentID, String bookingId, common.CampusID newCampusName, short newRoomNo,
                                                  common.Timeslot newTimeSlot) {
-        return null;
+        //TODO: log
+        validateDateTimeSlot(null, new Timeslot[]{newTimeSlot});
+        String resultLog;
+        CampusID newCampusID = CampusID.valueOf(newCampusName.name());
+        common.CampusID corbaCampusID = common.CampusID.valueOf(campusID.name());
+
+        //getting date from bookingId
+        String date = null;
+        List<Booking> bookingList = bookingRecords.values().stream().flatMap(List::stream).collect(Collectors.toList());
+        Optional<Booking> booking = bookingList.stream().filter(b -> b.getBookingID() != null &&
+                b.getBookingID().equals(bookingId)).findFirst();
+        //check if booking was found in the current server
+        if (booking.isPresent()) {
+            Map.Entry<String, Integer> record = roomRecords.get(booking.get().getRecordID());
+            date = record.getKey();
+        } else {
+            //TODO: log error
+        }
+
+        //local-local change
+        if (this.campusID == newCampusID) {
+            resultLog = processLocalChange(studentID, bookingId, newCampusName, newRoomNo, newTimeSlot, corbaCampusID, date);
+        } else { //local-remote change
+            resultLog = processRemoteChange(studentID, bookingId, newRoomNo, newTimeSlot, newCampusID, date);
+        }
+        return resultLog;
     }
 
+    private String processRemoteChange(String studentID, String bookingId, short newRoomNo, Timeslot newTimeSlot,
+                                       CampusID newCampusID, String date) {
+        String resultLog;
+        boolean transferSuccess = false;
+        common.CampusID corbaCampusID = common.CampusID.valueOf(campusID.name());
+        if (cancelBooking(studentID, bookingId).contains("success")) {
+            //3. Loop through the serversList to find the information of the remote server
+            for (String remoteCampusID : serversList.keySet()) {
+                if (newCampusID.name().equals(remoteCampusID)) {
+                    this.logger.info("Server Log: | Change Reservation Log: | Connection Initialized.");
+
+                    //3.1 Extract the key that is associated with the destination branch.
+                    String connectionData = serversList.get(newCampusID.name());
+
+                    //3.2 Extract the host and IP [host:IP]
+                    String hostDest = connectionData.split(":")[0];
+                    int portDest = Integer.parseInt(connectionData.split(":")[1]);
+
+                    //3.3 Create an UDPClient and prepare the request.
+                    UDPClient requestClient = new UDPClient(hostDest, portDest, campusID);
+
+                    CampusUDPInterface transferReq = new CampusUDP(studentID, bookingId, corbaCampusID, newRoomNo, newTimeSlot);
+                    requestClient.send(transferReq);
+
+                    //3.4 Receive the response.
+                    CampusUDPInterface transferResp = requestClient.getResponse();
+
+                    //3.5 IF successfully transfer ...
+                    if (((CampusUDP) transferResp).isTransferStatus()) {
+                        transferSuccess = true;
+                    }
+                }
+            }
+            if (transferSuccess) {
+                resultLog = "success";
+            } else {
+                bookRoom(studentID, corbaCampusID, newRoomNo, date, newTimeSlot);
+                //TODO: log error
+                resultLog = "failure";
+            }
+        } else {
+            //TODO: log error
+            resultLog = "failure";
+        }
+        return resultLog;
+    }
+
+    private String processLocalChange(String studentID, String bookingId, common.CampusID newCampusName,
+                                      short newRoomNo, Timeslot newTimeSlot, common.CampusID corbaCampusID, String date) {
+        String resultLog;
+        if (cancelBooking(studentID, bookingId).contains("success")) {
+            if (bookRoom(studentID, newCampusName, newRoomNo, date, newTimeSlot).contains("success")) {
+                //TODO: log
+                resultLog = "success";
+            } else {
+                //We can't deposit for some reason. Deposit back the amount to source.
+                bookRoom(studentID, corbaCampusID, newRoomNo, date, newTimeSlot);
+                //TODO: log error
+                resultLog = "failure";
+            }
+        } else {
+            //TODO: log error
+            resultLog = "failure";
+        }
+        return resultLog;
+    }
 
     @Override
     public int getUDPPort() {
@@ -332,33 +424,41 @@ public class CampusServer extends ServerInterfacePOA {
         HashMap<CampusID, Integer> totalTimeSlotCount = new HashMap<>();
         int localTimeSlotCount = getLocalAvailableTimeSlot();
         totalTimeSlotCount.put(this.campusID, localTimeSlotCount);
-
-        DatagramSocket socket;
         String resultLog;
 
         //1. Create UDP Socket
-        try {
-            socket = new DatagramSocket(this.UDPPort);
-            String[] campusServers = serversList.keySet().toArray(new String[0]);
-
-            //2. Get RMI Registry List of other servers.
-            for (String campusServer : campusServers) {
-                if (campusServer.equals(this.campusID.toString())) {
-                    continue;
-                }
-
-                ServerInterface otherServer;
-                Integer rData = 0;
-
-                totalTimeSlotCount.put(CampusID.valueOf(campusServer), rData);
-                resultLog = "Server Log | Getting the available timeslots was successful.";
-                this.logger.info(resultLog);
+        for (String campusServer : serversList.keySet()) {
+            if (campusServer.equals(this.campusID.toString())) {
+                continue;
             }
-            socket.close();
-        } catch (SocketException e) {
-            this.logger.severe("Server Log | getAvailableTimeSlot() ERROR: " + e.getMessage());
-            //TODO: throw?
-//            throw new Exception(e.getMessage());
+
+            //3.1 Extract the key that is associated with the destination branch.
+            String connectionData = serversList.get(campusServer);
+
+            //3.2 Extract the host and IP [host:IP]
+            String hostDest = connectionData.split(":")[0];
+            int portDest = Integer.parseInt(connectionData.split(":")[1]);
+
+            //3.3 Create an UDPClient and prepare the request.
+            UDPClient requestClient = new UDPClient(hostDest, portDest, CampusID.valueOf(campusServer));
+
+            CampusUDPInterface timeslotReq = new CampusUDP();
+            requestClient.send(timeslotReq);
+
+            //3.4 Receive the response.
+            CampusUDPInterface timeslotResp = requestClient.getResponse();
+            int rData = 0;
+            //3.5 IF successfully transfer ...
+            if (((CampusUDP) timeslotResp).isTransferStatus()) {
+                //TODO: log success
+                rData = ((CampusUDP) timeslotResp).getLocalAvailableTimeSlot();
+            } else {
+                //TODO: log failure
+            }
+
+            totalTimeSlotCount.put(CampusID.valueOf(campusServer), rData);
+            resultLog = "Server Log | Getting the available timeslots was successful.";
+            this.logger.info(resultLog);
         }
 
         return totalTimeSlotCount.toString();
@@ -432,16 +532,20 @@ public class CampusServer extends ServerInterfacePOA {
     }
 
     private String validateDateTimeSlot(String date, Timeslot[] listOfTimeSlots) {
-        for (Timeslot slot : listOfTimeSlots) {
-            if (slot.start < 0 || slot.start >= 24 || slot.end < 0 ||
-                    slot.end >= 24 || slot.start >= slot.end) {
-                return "Invalid timeslot format. Use the 24h clock.";
+        if (listOfTimeSlots != null) {
+            for (Timeslot slot : listOfTimeSlots) {
+                if (slot.start < 0 || slot.start >= 24 || slot.end < 0 ||
+                        slot.end >= 24 || slot.start >= slot.end) {
+                    return "Invalid timeslot format. Use the 24h clock.";
+                }
             }
         }
-        try {
-            new SimpleDateFormat("dd/MM/yyyy").parse(date);
-        } catch (ParseException e) {
-            return "Invalid date format.";
+        if (date != null) {
+            try {
+                new SimpleDateFormat("dd/MM/yyyy").parse(date);
+            } catch (ParseException e) {
+                return "Invalid date format.";
+            }
         }
         return null;
     }
